@@ -13,7 +13,7 @@ var eventosRouter = require("./routes/eventos")
 var loginRouter = require("./routes/login")
 var noticiasRouter = require ("./routes/noticias")
 var pesquisasRouter = require ("./routes/pesquisas")
-var acessosRouter = require ("./routes/acessos")
+var indexRouter = require ("./routes/acessos")
 var seaweed = require ("./routes/seaweed-trabalhos")
 
 var app = express();
@@ -47,13 +47,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public','arquivos')));
 
-
+app.use('/',indexRouter);
 app.use('/seaweed', seaweed);
 app.use('/eventos', eventosRouter);
 app.use('/usuarios',loginRouter);
 app.use('/noticias',noticiasRouter);
 app.use('/pesquisas',pesquisasRouter);
-app.use('/acessos',acessosRouter);
 app.use('/pasta-desejada', express.static(path.join(__dirname, 'public', 'arquivos')));
 
 
