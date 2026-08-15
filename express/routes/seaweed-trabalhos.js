@@ -5,6 +5,7 @@ var s3Client = require("../db/seaweed.connection")
 
 var router = express.Router()
 var upload = multer({ storage: multer.memoryStorage() })
+var Pdf = require("../models/pdf/Pdf") // ajusta o caminho conforme onde você salvou o arquivo
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -18,8 +19,8 @@ router.get('/', function(req, res, next) {
 //       res.json(trabalhoService.list())
 //   }
 // )
-
-router.post("/upload", upload.single("pdf"), async function (req, res) {
+var autenticar = require("../middlewares/auth.middleware")
+router.post("/upload", autenticar, upload.single("pdf"), async function (req, res) {
   try {
     var key = Date.now() + "-" + req.file.originalname
 
@@ -32,9 +33,15 @@ router.post("/upload", upload.single("pdf"), async function (req, res) {
       })
     )
 
-    // aqui você salva "key" no Mongo, junto com metadados (nome, quem enviou, data)
+    var pdf = await Pdf.create({
+      nomeOriginal: req.file.originalname,
+      chave: key,
+      tamanho: req.file.size,
+      mimeType: req.file.mimetype,
+      enviadoPor: req.usuario.id, // agora sim, vem do token
+    })
 
-    res.json({ mensagem: "Upload feito", key: key })
+    res.json({ mensagem: "Upload feito", pdf: pdf })
   } catch (err) {
     console.error(err)
     res.status(500).json({ erro: "Falha no upload" })
