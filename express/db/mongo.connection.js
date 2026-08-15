@@ -1,5 +1,5 @@
 var mongoose = require ("mongoose")
-var mongoDB_URI = "mongodb://localhost:27017/CegoAderaldoDataBase"
+var mongoDB_URI = process.env.MONGO_URI
 
 mongoose.connect(mongoDB_URI,{useNewUrlParser:true})
 
