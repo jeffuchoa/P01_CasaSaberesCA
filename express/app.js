@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public','arquivos')));
 
 app.use('/', indexRouter);
 app.use('/trabalhos', trabalhosRouter);
-app.use('/seaweed', trabalhosRouter);
+app.use('/seaweed', seaweed);
 app.use('/eventos', eventosRouter);
 app.use('/usuarios',loginRouter);
 app.use('/noticias',noticiasRouter);
