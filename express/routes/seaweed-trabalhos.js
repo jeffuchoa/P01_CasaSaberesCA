@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 
 router.post("/upload", upload.single("pdf"), async function (req, res) {
   try {
-    var key = "pdfs/" + Date.now() + "-" + req.file.originalname
+    var key = Date.now() + "-" + req.file.originalname
 
     await s3Client.send(
       new PutObjectCommand({
