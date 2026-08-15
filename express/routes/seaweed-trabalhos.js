@@ -6,6 +6,19 @@ var s3Client = require("../db/seaweed.connection")
 var router = express.Router()
 var upload = multer({ storage: multer.memoryStorage() })
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+// router.get(
+//   "/listar"
+//   ,
+//   (req, res, next) => {
+//       res.json(trabalhoService.list())
+//   }
+// )
+
 router.post("/upload", upload.single("pdf"), async function (req, res) {
   try {
     var key = "pdfs/" + Date.now() + "-" + req.file.originalname
