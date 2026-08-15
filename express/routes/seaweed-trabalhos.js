@@ -7,6 +7,7 @@ var router = express.Router()
 var upload = multer({ storage: multer.memoryStorage() })
 var Pdf = require("../models/pdf/Pdf") // ajusta o caminho conforme onde você salvou o arquivo
 var { GetObjectCommand } = require("@aws-sdk/client-s3")
+var autenticar = require("../middlewares/auth.middleware")
 
 router.get("/", autenticar, async function (req, res) {
   try {
@@ -46,7 +47,7 @@ router.get("/:id/download", autenticar, async function (req, res) {
   }
 })
 
-var autenticar = require("../middlewares/auth.middleware")
+
 router.post("/upload", autenticar, upload.single("pdf"), async function (req, res) {
   try {
     var key = Date.now() + "-" + req.file.originalname
