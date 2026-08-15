@@ -1,6 +1,6 @@
 var autenticar = require("../middlewares/auth.middleware")
 var somenteAdmin = require("../middlewares/admin.middleware")
-var Trabalho = require("../models/Trabalho")
+var Trabalho = require("../models/pdf/Pdf")
 var { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3")
 
 // Criar (admin only)
