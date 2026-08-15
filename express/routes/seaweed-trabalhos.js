@@ -6,19 +6,46 @@ var s3Client = require("../db/seaweed.connection")
 var router = express.Router()
 var upload = multer({ storage: multer.memoryStorage() })
 var Pdf = require("../models/pdf/Pdf") // ajusta o caminho conforme onde você salvou o arquivo
+var { GetObjectCommand } = require("@aws-sdk/client-s3")
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get("/", autenticar, async function (req, res) {
+  try {
+    var pdfs = await Pdf.find()
+      .populate("enviadoPor", "nome email")
+      .sort({ criadoEm: -1 })
 
-// router.get(
-//   "/listar"
-//   ,
-//   (req, res, next) => {
-//       res.json(trabalhoService.list())
-//   }
-// )
+    res.json(pdfs)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ erro: "Falha ao listar PDFs" })
+  }
+})
+
+router.get("/:id/download", autenticar, async function (req, res) {
+  try {
+    var pdf = await Pdf.findById(req.params.id)
+
+    if (!pdf) {
+      return res.status(404).json({ erro: "PDF não encontrado" })
+    }
+
+    var resultado = await s3Client.send(
+      new GetObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: pdf.chave,
+      })
+    )
+
+    res.setHeader("Content-Type", pdf.mimeType)
+    res.setHeader("Content-Disposition", `attachment; filename="${pdf.nomeOriginal}"`)
+
+    resultado.Body.pipe(res)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ erro: "Falha no download" })
+  }
+})
+
 var autenticar = require("../middlewares/auth.middleware")
 router.post("/upload", autenticar, upload.single("pdf"), async function (req, res) {
   try {
