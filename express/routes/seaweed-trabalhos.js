@@ -1,3 +1,5 @@
+var express = require("express")
+var router = express.Router()
 var autenticar = require("../middlewares/auth.middleware")
 var somenteAdmin = require("../middlewares/admin.middleware")
 var Trabalho = require("../models/pdf/Pdf")
