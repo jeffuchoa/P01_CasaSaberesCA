@@ -42,6 +42,13 @@ router.post(
   }
 )
 
+router.post(
+  "/login",
+  (request, response, next) => {
+    LoginService.login(request, response)
+  }
+)
+
 router.delete("/delete/:id"
     ,
     function (request, response, next) {
