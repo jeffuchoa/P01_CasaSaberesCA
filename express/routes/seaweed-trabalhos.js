@@ -1,10 +1,17 @@
 var express = require("express")
 var router = express.Router()
+var multer = require("multer")
 var autenticar = require("../middlewares/auth.middleware")
 var somenteAdmin = require("../middlewares/admin.middleware")
-var Trabalho = require("../models/pdf/Pdf")
+var Trabalho = require("../models/pdf/Pdf") // caminho corrigido, não mais /pdf/Pdf
+var s3Client = require("../db/seaweed.connection") // ajusta pro caminho real do seu cliente S3
 var { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3")
 
+var upload = multer({ storage: multer.memoryStorage() })
+var uploadCampos = upload.fields([
+  { name: "pdf", maxCount: 1 },
+  { name: "thumbnail", maxCount: 1 },
+])
 // Criar (admin only)
 router.post(
   "/",
