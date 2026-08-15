@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public','arquivos')));
 
 app.use('/',indexRouter);
-app.use('/seaweed', seaweed);
+app.use('/trabalhos', seaweed);
 app.use('/eventos', eventosRouter);
 app.use('/usuarios',loginRouter);
 app.use('/noticias',noticiasRouter);
