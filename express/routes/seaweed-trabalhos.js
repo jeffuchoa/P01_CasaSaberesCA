@@ -1,45 +1,89 @@
-var express = require("express")
-var multer = require("multer")
-var { PutObjectCommand } = require("@aws-sdk/client-s3")
-var s3Client = require("../db/seaweed.connection")
-
-var router = express.Router()
-var upload = multer({ storage: multer.memoryStorage() })
-var Pdf = require("../models/pdf/Pdf") // ajusta o caminho conforme onde você salvou o arquivo
-var { GetObjectCommand } = require("@aws-sdk/client-s3")
 var autenticar = require("../middlewares/auth.middleware")
+var somenteAdmin = require("../middlewares/admin.middleware")
+var Trabalho = require("../models/Trabalho")
+var { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3")
 
+// Criar (admin only)
+router.post(
+  "/",
+  autenticar,
+  somenteAdmin,
+  uploadCampos,
+  async function (req, res) {
+    try {
+      var arquivoPdf = req.files.pdf[0]
+      var arquivoThumb = req.files.thumbnail[0]
+
+      var chavePdf = "pdfs/" + Date.now() + "-" + arquivoPdf.originalname
+      var chaveThumb = "thumbnails/" + Date.now() + "-" + arquivoThumb.originalname
+
+      await s3Client.send(new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: chavePdf,
+        Body: arquivoPdf.buffer,
+        ContentType: arquivoPdf.mimetype,
+      }))
+
+      await s3Client.send(new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: chaveThumb,
+        Body: arquivoThumb.buffer,
+        ContentType: arquivoThumb.mimetype,
+      }))
+
+      var trabalho = await Trabalho.create({
+        titulo: req.body.titulo,
+        autor: req.body.autor,
+        descricao: req.body.descricao,
+        pdf: {
+          nomeOriginal: arquivoPdf.originalname,
+          chave: chavePdf,
+          tamanho: arquivoPdf.size,
+          mimeType: arquivoPdf.mimetype,
+        },
+        thumbnail: {
+          nomeOriginal: arquivoThumb.originalname,
+          chave: chaveThumb,
+          tamanho: arquivoThumb.size,
+          mimeType: arquivoThumb.mimetype,
+        },
+        enviadoPor: req.usuario.id,
+      })
+
+      res.status(201).json(trabalho)
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ erro: "Falha ao criar trabalho" })
+    }
+  }
+)
+
+// Listar (público)
 router.get("/", async function (req, res) {
   try {
-    var pdfs = await Pdf.find()
-      .populate("enviadoPor", "nome email")
+    var trabalhos = await Trabalho.find()
+      .populate("enviadoPor", "nome")
       .sort({ criadoEm: -1 })
-
-    res.json(pdfs)
+    res.json(trabalhos)
   } catch (err) {
     console.error(err)
-    res.status(500).json({ erro: "Falha ao listar PDFs" })
+    res.status(500).json({ erro: "Falha ao listar trabalhos" })
   }
 })
 
-router.get("/:id/download", async function (req, res) {
+// Baixar o PDF de um trabalho (público)
+router.get("/:id/pdf", async function (req, res) {
   try {
-    var pdf = await Pdf.findById(req.params.id)
+    var trabalho = await Trabalho.findById(req.params.id)
+    if (!trabalho) return res.status(404).json({ erro: "Trabalho não encontrado" })
 
-    if (!pdf) {
-      return res.status(404).json({ erro: "PDF não encontrado" })
-    }
+    var resultado = await s3Client.send(new GetObjectCommand({
+      Bucket: process.env.S3_BUCKET,
+      Key: trabalho.pdf.chave,
+    }))
 
-    var resultado = await s3Client.send(
-      new GetObjectCommand({
-        Bucket: process.env.S3_BUCKET,
-        Key: pdf.chave,
-      })
-    )
-
-    res.setHeader("Content-Type", pdf.mimeType)
-    res.setHeader("Content-Disposition", `attachment; filename="${pdf.nomeOriginal}"`)
-
+    res.setHeader("Content-Type", trabalho.pdf.mimeType)
+    res.setHeader("Content-Disposition", `attachment; filename="${trabalho.pdf.nomeOriginal}"`)
     resultado.Body.pipe(res)
   } catch (err) {
     console.error(err)
@@ -47,32 +91,47 @@ router.get("/:id/download", async function (req, res) {
   }
 })
 
-
-router.post("/upload", autenticar, upload.single("pdf"), async function (req, res) {
+// Ver a thumbnail de um trabalho (público)
+router.get("/:id/thumbnail", async function (req, res) {
   try {
-    var key = Date.now() + "-" + req.file.originalname
+    var trabalho = await Trabalho.findById(req.params.id)
+    if (!trabalho) return res.status(404).json({ erro: "Trabalho não encontrado" })
 
-    await s3Client.send(
-      new PutObjectCommand({
-        Bucket: process.env.S3_BUCKET,
-        Key: key,
-        Body: req.file.buffer,
-        ContentType: req.file.mimetype,
-      })
-    )
+    var resultado = await s3Client.send(new GetObjectCommand({
+      Bucket: process.env.S3_BUCKET,
+      Key: trabalho.thumbnail.chave,
+    }))
 
-    var pdf = await Pdf.create({
-      nomeOriginal: req.file.originalname,
-      chave: key,
-      tamanho: req.file.size,
-      mimeType: req.file.mimetype,
-      enviadoPor: req.usuario.id, // agora sim, vem do token
-    })
-
-    res.json({ mensagem: "Upload feito", pdf: pdf })
+    res.setHeader("Content-Type", trabalho.thumbnail.mimeType)
+    resultado.Body.pipe(res) // sem "attachment" — pra exibir direto, não baixar
   } catch (err) {
     console.error(err)
-    res.status(500).json({ erro: "Falha no upload" })
+    res.status(500).json({ erro: "Falha ao carregar thumbnail" })
+  }
+})
+
+// Excluir (admin only)
+router.delete("/:id", autenticar, somenteAdmin, async function (req, res) {
+  try {
+    var trabalho = await Trabalho.findById(req.params.id)
+    if (!trabalho) return res.status(404).json({ erro: "Trabalho não encontrado" })
+
+    await s3Client.send(new DeleteObjectCommand({
+      Bucket: process.env.S3_BUCKET,
+      Key: trabalho.pdf.chave,
+    }))
+
+    await s3Client.send(new DeleteObjectCommand({
+      Bucket: process.env.S3_BUCKET,
+      Key: trabalho.thumbnail.chave,
+    }))
+
+    await Trabalho.findByIdAndDelete(req.params.id)
+
+    res.json({ mensagem: "Trabalho excluído" })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ erro: "Falha ao excluir" })
   }
 })
 
