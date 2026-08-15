@@ -16,6 +16,7 @@ var loginRouter = require("./routes/login")
 var noticiasRouter = require ("./routes/noticias")
 var pesquisasRouter = require ("./routes/pesquisas")
 var acessosRouter = require ("./routes/acessos")
+var seaweed = require ("./routes/seaweed-trabalhos")
 
 var app = express();
 require("./db/mongo.connection")
@@ -51,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public','arquivos')));
 
 app.use('/', indexRouter);
 app.use('/trabalhos', trabalhosRouter);
+app.use('/seaweed', trabalhosRouter);
 app.use('/eventos', eventosRouter);
 app.use('/usuarios',loginRouter);
 app.use('/noticias',noticiasRouter);
