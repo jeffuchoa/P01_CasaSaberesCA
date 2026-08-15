@@ -9,7 +9,7 @@ var Pdf = require("../models/pdf/Pdf") // ajusta o caminho conforme onde você s
 var { GetObjectCommand } = require("@aws-sdk/client-s3")
 var autenticar = require("../middlewares/auth.middleware")
 
-router.get("/", autenticar, async function (req, res) {
+router.get("/", async function (req, res) {
   try {
     var pdfs = await Pdf.find()
       .populate("enviadoPor", "nome email")
@@ -22,7 +22,7 @@ router.get("/", autenticar, async function (req, res) {
   }
 })
 
-router.get("/:id/download", autenticar, async function (req, res) {
+router.get("/:id/download", async function (req, res) {
   try {
     var pdf = await Pdf.findById(req.params.id)
 
