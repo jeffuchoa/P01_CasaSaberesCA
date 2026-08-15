@@ -6,11 +6,9 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require ("multer")
-var indexRouter = require('./routes/trabalhos');
 const fs = require('fs')
 
 
-var trabalhosRouter = require("./routes/trabalhos")
 var eventosRouter = require("./routes/eventos")
 var loginRouter = require("./routes/login")
 var noticiasRouter = require ("./routes/noticias")
@@ -50,8 +48,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public','arquivos')));
 
 
-app.use('/', indexRouter);
-app.use('/trabalhos', trabalhosRouter);
 app.use('/seaweed', seaweed);
 app.use('/eventos', eventosRouter);
 app.use('/usuarios',loginRouter);
