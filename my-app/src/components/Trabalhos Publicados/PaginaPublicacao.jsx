@@ -47,7 +47,7 @@ function PaginaPublicacao() {
   function deleteTrabalho(id) {
     const token = localStorage.getItem("token")
 
-    axios.delete(`${API_URL}/seaweed/${id}`, {
+    axios.delete(`${API_URL}/trabalhos/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(
@@ -138,7 +138,7 @@ function PaginaPublicacao() {
                     <CardMedia
                       component="img"
                       height="140"
-                      image={`${API_URL}/seaweed/${publicacao._id}/thumbnail`}
+                      image={`${API_URL}/trabalhos/${publicacao._id}/thumbnail`}
                       alt="Imagem Publicação"
                     />
                     <CardContent sx={{ display: "flex", justifyContent: "flex-start", flexDirection: "column", width: "90%" }}>
