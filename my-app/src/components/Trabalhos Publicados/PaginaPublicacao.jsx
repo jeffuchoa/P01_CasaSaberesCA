@@ -32,7 +32,7 @@ function PaginaPublicacao() {
 
   useEffect(
     () => {
-      axios.get(`${API_URL}/seaweed`)
+      axios.get(`${API_URL}/trabalhos`)
         .then(
           (response) => {
             setTrabalhos(response.data)
