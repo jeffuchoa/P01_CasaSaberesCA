@@ -29,26 +29,26 @@ router.post(
       var chaveThumb = "thumbnails/" + Date.now() + "-" + arquivoThumb.originalname
 
       var thumbnailComprimida = await sharp(arquivoThumb.buffer)
+        .resize({ width: 800, withoutEnlargement: true })
+        .jpeg({ quality: 80 })
+        .toBuffer()
+
       var pdfComprimido = await comprimirPdf(arquivoPdf.buffer)
-      
-      .resize({ width: 800, withoutEnlargement: true }) // nunca aumenta, só reduz se for maior
-      .jpeg({ quality: 80 }) // comprime, convertendo pra JPEG
-      .toBuffer()
 
       await s3Client.send(new PutObjectCommand({
         Bucket: process.env.S3_BUCKET,
         Key: chaveThumb,
-        Body: thumbnailComprimida, // usa a versão comprimida, não o buffer original
+        Body: thumbnailComprimida,
         ContentType: "image/jpeg",
       }))
 
       await s3Client.send(new PutObjectCommand({
         Bucket: process.env.S3_BUCKET,
         Key: chavePdf,
-        Body: pdfComprimido, // usa a versão comprimida
+        Body: pdfComprimido,
         ContentType: arquivoPdf.mimetype,
       }))
-      
+
       var trabalho = await Trabalho.create({
         titulo: req.body.titulo,
         autor: req.body.autor,
@@ -56,14 +56,14 @@ router.post(
         pdf: {
           nomeOriginal: arquivoPdf.originalname,
           chave: chavePdf,
-          tamanho: arquivoPdf.size,
+          tamanho: pdfComprimido.length,
           mimeType: arquivoPdf.mimetype,
         },
         thumbnail: {
           nomeOriginal: arquivoThumb.originalname,
           chave: chaveThumb,
-          tamanho: arquivoThumb.size,
-          mimeType: arquivoThumb.mimetype,
+          tamanho: thumbnailComprimida.length,
+          mimeType: "image/jpeg",
         },
         enviadoPor: req.usuario.id,
       })
