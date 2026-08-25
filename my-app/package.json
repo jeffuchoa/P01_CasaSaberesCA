@@ -33,6 +33,7 @@
     "react-pdf": "^7.1.2",
     "react-router-dom": "^6.11.2",
     "react-scroll-trigger": "^0.6.14",
+    "serve": "^14.2.6",
     "sweetalert2": "^11.7.12"
   },
   "scripts": {
