@@ -8,11 +8,12 @@ var s3Client = require("../db/seaweed.connection") // ajusta pro caminho real do
 var { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3")
 
 var upload = multer({ storage: multer.memoryStorage() })
+var sharp = require("sharp")
 var uploadCampos = upload.fields([
   { name: "pdf", maxCount: 1 },
   { name: "thumbnail", maxCount: 1 },
 ])
-// Criar (admin only)
+
 router.post(
   "/",
   autenticar,
@@ -26,20 +27,25 @@ router.post(
       var chavePdf = "pdfs/" + Date.now() + "-" + arquivoPdf.originalname
       var chaveThumb = "thumbnails/" + Date.now() + "-" + arquivoThumb.originalname
 
+      var thumbnailComprimida = await sharp(arquivoThumb.buffer)
+      .resize({ width: 800, withoutEnlargement: true }) // nunca aumenta, só reduz se for maior
+      .jpeg({ quality: 80 }) // comprime, convertendo pra JPEG
+      .toBuffer()
+
+      await s3Client.send(new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: chaveThumb,
+        Body: thumbnailComprimida, // usa a versão comprimida, não o buffer original
+        ContentType: "image/jpeg",
+      }))
+
       await s3Client.send(new PutObjectCommand({
         Bucket: process.env.S3_BUCKET,
         Key: chavePdf,
         Body: arquivoPdf.buffer,
         ContentType: arquivoPdf.mimetype,
       }))
-
-      await s3Client.send(new PutObjectCommand({
-        Bucket: process.env.S3_BUCKET,
-        Key: chaveThumb,
-        Body: arquivoThumb.buffer,
-        ContentType: arquivoThumb.mimetype,
-      }))
-
+      
       var trabalho = await Trabalho.create({
         titulo: req.body.titulo,
         autor: req.body.autor,
