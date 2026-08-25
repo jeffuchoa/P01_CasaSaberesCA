@@ -1,7 +1,6 @@
 import './App.css';
-import './assets/Home';
 
-import MainPage from "../src/components/MainPage/MainPage"
+import MainPage from "./components/MainPage/MainPage"
 
 function App() {
   return (

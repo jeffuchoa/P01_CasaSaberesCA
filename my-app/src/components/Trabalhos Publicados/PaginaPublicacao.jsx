@@ -17,7 +17,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = import.meta.env.VITE_API_URL
 
 function PaginaPublicacao() {
 
@@ -30,19 +30,13 @@ function PaginaPublicacao() {
   const [publicacoes, setTrabalhos] = useState([])
   const [mudou, setMudou] = useState(false)
 
-  useEffect(
-    () => {
-      axios.get(`${API_URL}/trabalhos`)
-        .then(
-          (response) => {
-            setTrabalhos(response.data)
-          }
-        )
-        .catch(error => console.log(error))
-    }
-    ,
-    [mudou]
-  )
+  useEffect(() => {
+  axios.get(`${API_URL}/trabalhos`)
+    .then((response) => {
+      setTrabalhos(Array.isArray(response.data) ? response.data : [])
+    })
+    .catch(error => console.log(error))
+}, [mudou])
 
   function deleteTrabalho(id) {
     const token = localStorage.getItem("token")

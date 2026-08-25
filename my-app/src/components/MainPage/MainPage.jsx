@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // import Administrador from "../Login_Contexto/ContextoLogin";
 import { AdminProvider } from '../Login_Contexto/ContextoLogin';
-import { AcessProvider } from '../Login_Contexto/ContextoLogin copy';
+import { AcessProvider } from '../Login_Contexto/ContextoAcessibilidade';
 
 import ChamarHome from "../Home/ChamarHome";
 import ChamarPaginaPublicacao from "../Trabalhos Publicados/ChamarPaginaPublicacao";

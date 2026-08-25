@@ -5,7 +5,6 @@ import beija from "../../midia/beija.png"
 import { Link } from "react-router-dom"
 
 import { useContext, useEffect } from "react"
-import Administrador from "../Login_Contexto/ContextoLogin";
 import { useState } from "react";
 import { publicacoes2 } from "./publicacoes"
 import axios from "axios"

@@ -8,7 +8,7 @@ import UsuarioImg from "../../midia/user.png"
 import UsuarioImg2 from "../../midia/user2.png"
 import Fonte from "./Fonte"
 import contrat from "../../midia/contrast.png"
-import { AcessContext} from "../Login_Contexto/ContextoLogin copy";
+import { AcessContext} from "../Login_Contexto/ContextoAcessibilidade";
 
 
 
@@ -24,7 +24,7 @@ import { useEffect } from "react"
 import { useRef } from "react"
 import image from "../../midia//216151_right_chevron_icon.png"
 import rebeca from "../../midia/rebeca.png"
-import { AdminContext, Login, AdminProvider } from "../Login_Contexto/ContextoLogin";
+import { AdminContext, AdminProvider } from "../Login_Contexto/ContextoLogin";
 import { useContext } from "react"
 import { Container, Box, Typography, TextField, Button, Menu } from "@mui/material"
 import { FormControl,FormLabel,RadioGroup,FormControlLabel,Radio } from "@mui/material"

@@ -18,7 +18,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import audio from "../../midia/suletta.mp3"
 
 import capa from "../../midia/capa2.png"
-import { AcessContext} from "../Login_Contexto/ContextoLogin copy";
+import { AcessContext} from "../Login_Contexto/ContextoAcessibilidade";
 
 
 export default function AudioPlayer() {
