@@ -119,6 +119,17 @@ router.get("/:id/thumbnail", async function (req, res) {
   }
 })
 
+router.get("/:id", async function (req, res) {
+  try {
+    var trabalho = await Trabalho.findById(req.params.id).populate("enviadoPor", "nome")
+    if (!trabalho) return res.status(404).json({ erro: "Trabalho não encontrado" })
+    res.json(trabalho)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ erro: "Falha ao buscar trabalho" })
+  }
+})
+
 // Excluir (admin only)
 router.delete("/:id", autenticar, somenteAdmin, async function (req, res) {
   try {
