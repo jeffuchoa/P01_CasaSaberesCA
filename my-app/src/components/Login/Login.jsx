@@ -1,42 +1,34 @@
 import { Container, Box, Typography, TextField, Button } from "@mui/material"
 import casa from '../../midia/casa-de-saberes.jpg'
 import volta from "../../midia/volta2.png"
-import { Link } from "react-router-dom"
-
+import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { useState } from "react";
 import { useEffect } from "react";
 import {AdminContext,AdminProvider} from "../Login_Contexto/ContextoLogin";
+import api from "../../api/axios"
 
 
 import axios from "axios"
 
 
 const Signin = () => {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
 
-    const[usuarios,SetUsuarios] = useState ([])
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [erro, setErro] = useState('')
+    const { login } = useContext(AdminContext)
+    const navigate = useNavigate()
 
-    const { isAdmin, setIsAdmin } = useContext(AdminContext);
-    const { Usuario, SetUsuario } = useContext(AdminContext);
- 
-    
-    useEffect(
-        () => {
-            axios.get("http://localhost:3001/usuarios/listar")
-                .then(
-                    (response) => {
-                        SetUsuarios(response.data)
-                    }
-                )
-                .catch(error => console.log(error))
+    const fazerLogin = async () => {
+        try {
+        const response = await api.post('/usuarios/login', { email, senha })
+        login(response.data.token, response.data.usuario)
+        navigate('/')
+        } catch (error) {
+        setErro('Email ou senha inválidos')
         }
-        ,
-        []
-    )
-
-    
+    }
 
     const pegarEmail = (event) => {
         setEmail(event.target.value);
@@ -45,21 +37,6 @@ const Signin = () => {
     const pegarSenha = (event) => {
         setSenha(event.target.value);
     };
-
-
-    
-    const verificacao = () => {
-        
-        if (usuarios.find(adm => adm.email == email && adm.senha == senha)) {
-            SetUsuario(usuarios.find(adm => adm.email == email && adm.senha == senha))
-            if (usuarios.find(adm => adm.email == email && adm.tipo == 'adm')) {
-                setIsAdmin(true)
-                console.log(isAdmin)
-            }
-        }
-        
-    }
- 
 
 
     return (
@@ -104,13 +81,13 @@ const Signin = () => {
                                 onChange={pegarSenha}
                             />
                             { }
-                            <Link to={'/'}>
+                            <Link>
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{ mb: 2, color: "white" }}
-                                    onClick={verificacao}
+                                    onClick={fazerLogin}
                                     className="botao-envio"
                                 >
                                     Sign In

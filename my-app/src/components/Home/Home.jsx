@@ -172,23 +172,13 @@ const BotaoPesquisa = () => {
 const Header = () => {
 
     const { acessibilidade, SetAcessibilidade } = useContext(AcessContext);
-
-    const { Usuario, SetUsuario } = useContext(AdminContext);
-    const { isAdmin, setIsAdmin } = useContext(AdminContext);
-    const [isLoged, SetIsLoged] = useState(false);
+    const { usuario, logout } = useContext(AdminContext);
     const [active, SetActive] = useState('');
 
-    useEffect(
-        () => {
-            console.log(Usuario)
-        }
-        ,
-        []
-    )
     const Sair = () => {
-        setIsAdmin(false)
-        SetUsuario()
+        logout()
     }
+
     const Trocar = () => {
         if (active == '') {
             SetActive('active')
@@ -197,32 +187,31 @@ const Header = () => {
     }
 
     return (
-        <div className={acessibilidade? ("header acessibilidade"): ("header")}>
-            <div className={acessibilidade? ("barra-header acessibilidade"): ("barra-header")}>
+        <div className={acessibilidade ? ("header acessibilidade") : ("header")}>
+            <div className={acessibilidade ? ("barra-header acessibilidade") : ("barra-header")}>
                 <div className="functions">
                     <Fonte />
-                    <img className="contraste" style={{cursor:"pointer"}} src={contrat} alt="Botão Contraste" onClick={()=> SetAcessibilidade(!acessibilidade)} />
+                    <img className="contraste" style={{ cursor: "pointer" }} src={contrat} alt="Botão Contraste" onClick={() => SetAcessibilidade(!acessibilidade)} />
                 </div>
             </div>
             <div className="header-content">
-                <Link to={'/'}><img src={acessibilidade? (logoBranca): (Casa)} alt="Página inicial" style={{ width: "25%" }} /></Link>
-                <div className={acessibilidade? ("header-functions acessibilidade"): ("header-functions")}>
+                <Link to={'/'}><img src={acessibilidade ? (logoBranca) : (Casa)} alt="Página inicial" style={{ width: "25%" }} /></Link>
+                <div className={acessibilidade ? ("header-functions acessibilidade") : ("header-functions")}>
                     <Link to={'/PaginaPublicacao'}><a > Calendario de Eventos</a></Link>
                     <Link to={'/PaginaPublicacao'}><a > Noticias e Oportunidade</a></Link>
                     <Link to={'/PaginaPublicacao'}><a > Publicações</a></Link>
                     <Link to={'/pesquisas'}><a > Pesquisas</a></Link>
                     <>
-                        {Usuario ? (
+                        {usuario ? (
                             <div className="nome-usuario">
-                                <p className="nome-usuario" onClick={Trocar}>Olá {Usuario.nome} !</p>
+                                <p className="nome-usuario" onClick={Trocar}>Olá {usuario.nome} !</p>
                                 <div className={"dropdow " + active}>
                                     <p className="sair" onClick={Sair}>Sair</p>
                                 </div>
                             </div>
-
                         ) : (
                             <Link className="user-icon" to={'/Login'}>
-                                <img src={acessibilidade? (UsuarioImg2): (UsuarioImg)} alt="Login"  />
+                                <img src={acessibilidade ? (UsuarioImg2) : (UsuarioImg)} alt="Login" />
                             </Link>
                         )}
                     </>

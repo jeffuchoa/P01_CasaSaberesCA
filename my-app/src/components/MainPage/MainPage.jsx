@@ -12,6 +12,8 @@ import ChamarNovaPublicacao from "../CriarPublicacao/ChamarNovaPublicacao";
 import ChamarPesquisas from "../Pesquisas/ChamarPesquisas";
 import ChamarCadastro from "../Cadastro/ChamarCadastro";
 import ChamarTrabalho from "../Trabalhos Publicados/chamarTrabalho";
+import RotaProtegida from './rota-protegida'
+
 
 import { useEffect } from "react";
 import axios from "axios";
@@ -28,11 +30,17 @@ const MainPage = () => {
                     <Route path='/PaginaPublicacao' element={<ChamarPaginaPublicacao />} />
                     <Route path='/' element={<ChamarHome />} />
                     <Route path='/Login' element={<ChamarLogin />} />
-                    <Route path='/novaPublicacao' element={<ChamarNovaPublicacao />} />
+                    <Route
+                    path="/novaPublicacao"
+                        element={
+                            <RotaProtegida>
+                            <ChamarNovaPublicacao/>
+                            </RotaProtegida>
+                        }
+                    />
                     <Route path='/pesquisas' element={<ChamarPesquisas />} />
                     <Route path='/cadastro' element={<ChamarCadastro />} />
-                    <Route path='/trabalho/:linkPdf/:titulo/:descricao' element={<ChamarTrabalho />} />
-
+                    <Route path="/trabalho/:id" element={<ChamarTrabalho />} />
                 </Routes>
             </BrowserRouter> 
         </AdminProvider>
