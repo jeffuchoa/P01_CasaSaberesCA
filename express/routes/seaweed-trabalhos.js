@@ -9,6 +9,7 @@ var { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-
 
 var upload = multer({ storage: multer.memoryStorage() })
 var sharp = require("sharp")
+var comprimirPdf = require("../utils/comprimirpdf")
 var uploadCampos = upload.fields([
   { name: "pdf", maxCount: 1 },
   { name: "thumbnail", maxCount: 1 },
@@ -28,6 +29,8 @@ router.post(
       var chaveThumb = "thumbnails/" + Date.now() + "-" + arquivoThumb.originalname
 
       var thumbnailComprimida = await sharp(arquivoThumb.buffer)
+      var pdfComprimido = await comprimirPdf(arquivoPdf.buffer)
+      
       .resize({ width: 800, withoutEnlargement: true }) // nunca aumenta, só reduz se for maior
       .jpeg({ quality: 80 }) // comprime, convertendo pra JPEG
       .toBuffer()
@@ -42,7 +45,7 @@ router.post(
       await s3Client.send(new PutObjectCommand({
         Bucket: process.env.S3_BUCKET,
         Key: chavePdf,
-        Body: arquivoPdf.buffer,
+        Body: pdfComprimido, // usa a versão comprimida
         ContentType: arquivoPdf.mimetype,
       }))
       
