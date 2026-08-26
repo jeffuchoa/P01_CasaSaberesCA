@@ -30,6 +30,8 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { useRef } from "react";
 
+const API_URL = import.meta.env.VITE_APP_API_URL
+
 
 
 function Calendar() {
@@ -71,7 +73,7 @@ function Calendar() {
 
   useEffect(
     () => {
-        axios.get("http://localhost:3001/eventos/listar")
+        axios.get(`${API_URL}/eventos/listar`)
             .then(
                 (response) => {
                     SetEventos(response.data)
@@ -81,24 +83,8 @@ function Calendar() {
             .catch(error => console.log(error))
     }
     ,
-    []
-  )
-
-  useEffect(
-    () => {
-        axios.get("http://localhost:3001/eventos/listar")
-            .then(
-                (response) => {
-                    SetEventos(response.data)
-                }
-            )
-            .catch(error => console.log(error))
-    }
-    ,
     [mudou]
   )
-
-  
 
   const [overlayNovoEvento, SetNovoEvento] = useState(true)
 
@@ -174,7 +160,7 @@ function Calendar() {
 
   const MontarEvento = () => {
     const novoTrabalho = { title: nomeEvento, date: novoeventodia, descricao: descricaoEvento, horario: horarioEvento }
-    axios.post("http://localhost:3001/eventos/adicionar", novoTrabalho)
+    axios.post(`${API_URL}/eventos/adicionar`, novoTrabalho)
       .then(
         (response) => {
           Confirmação()
@@ -189,7 +175,7 @@ function Calendar() {
   
   function deletar(id) {
    
-        axios.delete(`http://localhost:3001/eventos/delete/${id}`)
+        axios.delete(`${API_URL}/eventos/delete/${id}`)
             .then(
                 (response) => { 
                     deleteTeste(id)

@@ -53,6 +53,8 @@ import lupa from "../../midia/lupa2.png"
 import x from "../../midia/volta3.png"
 import { Position } from "@react-pdf-viewer/core"
 
+const API_URL = import.meta.env.VITE_APP_API_URL
+
 //DADOS
 
 
@@ -621,24 +623,24 @@ const Footer = () => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:3001/acessos/listar")
+        axios.get(`${API_URL}/trabalhos`)
             .then(response => {
-                SetTrabalhos(response.data[1].numero);
+                SetTrabalhos(response.data.length);
             })
             .catch(error => console.log(error));
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:3001/acessos/listar")
+        axios.get(`${API_URL}/pesquisas/listar`)
             .then(response => {
-                SetPesquisas(response.data[2].numero);
+                SetPesquisas(response.data.length);
             })
             .catch(error => console.log(error));
     }, []);
 
 
     useEffect(() => {
-        axios.get("http://localhost:3001/acessos/listar")
+        axios.get(`${API_URL}/listar`)
             .then(response => {
                 setNumeroAcessos(response.data[0].numero);
             })
@@ -648,7 +650,7 @@ const Footer = () => {
     useEffect(() => {
         if (numeroAcessos !== 0) {
             const novoNumero = numeroAcessos + 1;
-            axios.put(`http://localhost:3001/acessos/update/649ed67ae5acda81ef1a7609`, { numero: novoNumero })
+            axios.put(`${API_URL}/update/6a8f24bdeb4cd5775afee629`, { numero: novoNumero })
                 .then(response => {
                     console.log(response.data);
                 })
@@ -711,7 +713,7 @@ const Footer = () => {
                                         <p> {mudou && <CountUp start={0} end={numeroAcessos} duration={2} delay={0} />} </p>
                                     </ScrollTrigger>
                                 </div>
-                                <p>Pessoas alcançadas</p>
+                                <p>Acessos no Site</p>
                             </div>
 
                             <div className="numero">

@@ -11,7 +11,6 @@ const ChamarHome = () => {
             <SobreNos />
             <Calendar />
             <Noticias />
-            <NossosDados />
             <Footer />
         </div>
     )

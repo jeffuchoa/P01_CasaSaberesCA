@@ -36,7 +36,7 @@ function PaginaPublicacao() {
       setTrabalhos(Array.isArray(response.data) ? response.data : [])
     })
     .catch(error => console.log(error))
-}, [mudou])
+  }, [mudou])
 
   function deleteTrabalho(id) {
     const token = localStorage.getItem("token")

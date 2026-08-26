@@ -14,6 +14,7 @@ import volta from "../../midia/volta3.png";
 import lixo from "../../midia/lixo.png"
 
 import { AdminContext, AdminProvider } from "../Login_Contexto/ContextoLogin";
+const API_URL = import.meta.env.VITE_APP_API_URL
 
 
 import { Container, Box, Typography, TextField } from "@mui/material"
@@ -43,7 +44,7 @@ const Pesquisas = () => {
     
     useEffect(
         () => {
-            axios.get("http://localhost:3001/pesquisas/listar")
+            axios.get(`${API_URL}/pesquisas/listar`)
                 .then(
                     (response) => {
                         SetPesquisa(response.data.slice().reverse())
@@ -56,7 +57,7 @@ const Pesquisas = () => {
     )
     useEffect(
         () => {
-            axios.get("http://localhost:3001/pesquisas/listar")
+            axios.get(`${API_URL}/pesquisas/listar`)
                 .then(
                     (response) => {
                         SetPesquisa(response.data.slice().reverse())
@@ -67,25 +68,6 @@ const Pesquisas = () => {
         ,
         [mudou]
     )
-    useEffect(() => {
-        axios.get("http://localhost:3001/acessos/listar")
-          .then(response => {
-            setNumeroAcessos(response.data[2].numero);
-            console.log(response.data[2].numero)
-          })
-          .catch(error => console.log(error));
-      }, []);
-
-    useEffect(() => {
-        if (numeroAcessos !== 0) {
-          const novoNumero = numeroAcessos + 1;
-          axios.put(`http://localhost:3001/acessos/update/64a0453b194652b31b25b013`, { numero: novoNumero })
-            .then(response => {
-              console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            })
-            .catch(error => console.log(error));
-        }
-      }, [novotrabalho2]);
     
       const Confirmação = () => {
         Swal.fire(
@@ -97,7 +79,7 @@ const Pesquisas = () => {
     const MontarPesquisa = () => {
         SetNovoTrabalho2(false)
         const novoTrabalho = { titulo: tituloPesquisa, descricao: descricaoPesquisa, link: linkPesquisa }
-        axios.post("http://localhost:3001/pesquisas/adicionar", novoTrabalho)
+        axios.post(`${API_URL}/pesquisas/adicionar`, novoTrabalho)
             .then(
                 (response) => {
                     Confirmação()
@@ -111,7 +93,7 @@ const Pesquisas = () => {
 
     function deletar(id) {
        
-            axios.delete(`http://localhost:3001/pesquisas/delete/${id}`)
+            axios.delete(`${API_URL}/pesquisas/delete/${id}`)
                 .then(
                     (response) => {
                         setMudou(!mudou)
@@ -156,7 +138,7 @@ const Pesquisas = () => {
 
     function deleteTrabalho(id) {
     
-        axios.delete(`http://localhost:3001/trabalhos/delete/${id}`)
+        axios.delete(`${API_URL}/pesquisas/delete/${id}`)
           .then(
             (response) => {
               deletar(id)
