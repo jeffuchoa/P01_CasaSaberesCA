@@ -14,15 +14,15 @@ import { AcessContext} from "../Login_Contexto/ContextoAcessibilidade";
 
 import { Container, Box, Typography, TextField, Button } from "@mui/material"
 
-import cantores from "../../midia/casal2.png";
-import passaro from "../../midia/passaro2.png";
-import lixo from "../../midia/lixo2.png"
-import x from "../../midia/volta3.png"
+import cantores from "../../assets/img/casal2.png";
+import passaro from "../../assets/img/passaro2.png";
+import lixo from "../../assets/img/lixo2.png"
+import x from "../../assets/img/volta3.png"
 
 import {AdminContext, AdminProvider} from "../Login_Contexto/ContextoLogin";
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import volta from "../../midia/volta3.png";
+import volta from "../../assets/img/volta3.png";
 import { Link } from "react-router-dom";
 
 import axios from "axios";

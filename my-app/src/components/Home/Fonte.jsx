@@ -21,7 +21,7 @@ class App extends Component {
             
             style: {
               border: "none",
-              color: 'white',
+              color: '#EAE8DB',
               width: '60px',
               heigth: "100%",
               font: "titulo",

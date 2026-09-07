@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { SliderData } from './SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
-import left from "../../midia/left-64.png"
-import right from "../../midia/right-64.png"
+import left from "../../assets/img/left-64.png"
+import right from "../../assets/img/right-64.png"
 
 
 const ImageSlider = ({ slides }) => {

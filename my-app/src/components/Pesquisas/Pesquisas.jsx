@@ -8,10 +8,10 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Swal from "sweetalert2";
 
-import lupa from "../../midia/lupa.png"
-import x from "../../midia/volta3.png"
-import volta from "../../midia/volta3.png";
-import lixo from "../../midia/lixo.png"
+import lupa from "../../assets/img/lupa.png"
+import x from "../../assets/img/volta3.png"
+import volta from "../../assets/img/volta3.png";
+import lixo from "../../assets/img/lixo.png"
 
 import { AdminContext, AdminProvider } from "../Login_Contexto/ContextoLogin";
 const API_URL = import.meta.env.VITE_APP_API_URL

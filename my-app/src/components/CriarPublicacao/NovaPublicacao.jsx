@@ -1,6 +1,6 @@
 import { Container, Box, TextField, Button, FormLabel } from "@mui/material"
-import volta from "../../midia/volta2.png"
-import beija from "../../midia/beija.png"
+import volta from "../../assets/img/volta2.png"
+import beija from "../../assets/img/beija.png"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { FileUploader } from "react-drag-drop-files"

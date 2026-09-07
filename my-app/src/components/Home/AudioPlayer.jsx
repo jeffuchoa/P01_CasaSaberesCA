@@ -15,9 +15,9 @@ import { useContext } from 'react';
 import AudioPlayer2 from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-import audio from "../../midia/suletta.mp3"
+import audio from "../../assets/audio/suletta.mp3"
 
-import capa from "../../midia/capa2.png"
+import capa from "../../assets/img/capa2.png"
 import { AcessContext} from "../Login_Contexto/ContextoAcessibilidade";
 
 

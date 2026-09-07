@@ -2,55 +2,55 @@ import { useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
 // HEADER
-import Casa from "../../midia/logo Casa de saberes2.png"
+import Casa from "../../assets/img/logo-casa-saberes-preto.png"
 
-import UsuarioImg from "../../midia/user.png"
-import UsuarioImg2 from "../../midia/user2.png"
+import UsuarioImg from "../../assets/img/user.png"
+import UsuarioImg2 from "../../assets/img/user2.png"
 import Fonte from "./Fonte"
-import contrat from "../../midia/contrast.png"
+import contrat from "../../assets/img/contrast.png"
 import { AcessContext} from "../Login_Contexto/ContextoAcessibilidade";
 
 
 
 
 // // // IMAGE-SLIDER
-import setaEsquerda from "../../midia/left-64.png"
-import setaDireita from "../../midia/right-64.png"
-import cegoAderaldo from "../../midia/cego2.png"
-import { SliderData } from "../../assets/ImageSlider2/SliderData"
+import setaEsquerda from "../../assets/img/left-64.png"
+import setaDireita from "../../assets/img/right-64.png"
+import cegoAderaldo from "../../assets/img/cego2.png"
+import { SliderData } from "../../ImageSlider/SliderData"
 
 // NOTICIAS
 import { useEffect } from "react"
 import { useRef } from "react"
-import image from "../../midia//216151_right_chevron_icon.png"
-import rebeca from "../../midia/rebeca.png"
+import image from "../../assets/img//216151_right_chevron_icon.png"
+import rebeca from "../../assets/img/rebeca.png"
 import { AdminContext, AdminProvider } from "../Login_Contexto/ContextoLogin";
 import { useContext } from "react"
 import { Container, Box, Typography, TextField, Button, Menu } from "@mui/material"
 import { FormControl,FormLabel,RadioGroup,FormControlLabel,Radio } from "@mui/material"
 
-import volta from "../../midia/volta2.png"
+import volta from "../../assets/img/volta2.png"
 import { useNavigate } from "react-router-dom"
 import AudioPlayer from "./AudioPlayer"
 import Swal from 'sweetalert2';
-import lix from "../../midia/lixo2.png"
+import lix from "../../assets/img/lixo2.png"
 import { FileUploader } from "react-drag-drop-files";
 
 
 
 // FOOTER
-import logoBranca from "../../midia/Logo Branca.png"
-import Whatssap from "../../midia/zap.png"
-import Facebook from "../../midia/face.png"
-import Instagram from "../../midia/insta.png"
+import logoBranca from "../../assets/img/Logo Branca.png"
+import Whatssap from "../../assets/img/zap.png"
+import Facebook from "../../assets/img/face.png"
+import Instagram from "../../assets/img/insta.png"
 import axios from "axios";
 import CountUp from "react-countup"
 import ScrollTrigger from "react-scroll-trigger"
 
 
 // PESQUISA
-import lupa from "../../midia/lupa2.png"
-import x from "../../midia/volta3.png"
+import lupa from "../../assets/img/lupa2.png"
+import x from "../../assets/img/volta3.png"
 import { Position } from "@react-pdf-viewer/core"
 
 const API_URL = import.meta.env.VITE_APP_API_URL
@@ -135,16 +135,14 @@ const BotaoPesquisa = () => {
 
     useEffect(
         () => {
-            axios.get("http://localhost:3001/pesquisas/listar")
+            axios.get(`${API_URL}/pesquisas/listar`)
                 .then(
                     (response) => {
                         let pesquisas2 = response.data.slice().reverse()[0]
                         const links = pesquisas2.link.split('=').map(link => link.replace(/"/g, ''));
                         SetPesquisa(links[1])
-                        console.log(links[1])
                     }
                 )
-                .catch(error => console.log(error))
         }
         ,
         []
@@ -190,14 +188,9 @@ const Header = () => {
 
     return (
         <div className={acessibilidade ? ("header acessibilidade") : ("header")}>
-            <div className={acessibilidade ? ("barra-header acessibilidade") : ("barra-header")}>
-                <div className="functions">
-                    <Fonte />
-                    <img className="contraste" style={{ cursor: "pointer" }} src={contrat} alt="Botão Contraste" onClick={() => SetAcessibilidade(!acessibilidade)} />
-                </div>
-            </div>
+            
             <div className="header-content">
-                <Link to={'/'}><img src={acessibilidade ? (logoBranca) : (Casa)} alt="Página inicial" style={{ width: "25%" }} /></Link>
+                <Link to={'/'}><img src={acessibilidade ? (logoBranca) : (Casa)} alt="Página inicial" style={{ height: "50px" }} /></Link>
                 <div className={acessibilidade ? ("header-functions acessibilidade") : ("header-functions")}>
                     <Link to={'/PaginaPublicacao'}><a > Calendario de Eventos</a></Link>
                     <Link to={'/PaginaPublicacao'}><a > Noticias e Oportunidade</a></Link>
@@ -217,6 +210,13 @@ const Header = () => {
                             </Link>
                         )}
                     </>
+                </div>
+
+                <div className={acessibilidade ? ("barra-header acessibilidade") : ("barra-header")}>
+                <div className="functions">
+                    <Fonte />
+                    <img className="contraste" style={{ cursor: "pointer" }} src={contrat} alt="Botão Contraste" onClick={() => SetAcessibilidade(!acessibilidade)} />
+                </div>
                 </div>
             </div>
         </div>

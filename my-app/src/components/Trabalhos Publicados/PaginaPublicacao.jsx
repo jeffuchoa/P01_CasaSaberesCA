@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import lixo from "../../midia/lixo.png";
-import pesquisa from "../../midia/pesquisa.png";
+import lixo from "../../assets/img/lixo.png";
+import pesquisa from "../../assets/img/pesquisa.png";
 
 import { useContext } from "react"
 import { AdminContext } from "../Login_Contexto/ContextoLogin";

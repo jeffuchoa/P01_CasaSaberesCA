@@ -3,7 +3,7 @@ export const SliderData = [
     id:
     0,
     image:
-      '/imageSlider/slide1.png',
+      '/slide1.png',
     titulo:
       'Primerio Slide',
     descrisao:
@@ -13,7 +13,7 @@ export const SliderData = [
     id:
     1,
     image:
-      '/imageSlider/slide4.png',
+      '/casal2.png',
     titulo:
       'Segundo Slide',
     descrisao:
@@ -23,7 +23,7 @@ export const SliderData = [
     id:
     3,
     image:
-      '/imageSlider/slide1.png',
+      '/slide1.png',
     titulo:
       'Terceiro Slide',
     descrisao:

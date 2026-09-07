@@ -1,6 +1,6 @@
 import { Container, Box, Typography, TextField, Button } from "@mui/material"
-import casa from '../../midia/casa-de-saberes.jpg'
-import volta from "../../midia/volta2.png"
+import casa from '../../assets/img/casa-de-saberes.jpg'
+import volta from "../../assets/img/volta2.png"
 import { Link } from "react-router-dom"
 
 import { useContext } from "react"
