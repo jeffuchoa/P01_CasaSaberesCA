@@ -239,54 +239,7 @@ const SobreNos = () => {
                     <h1>Sobre nós </h1>
                     <AudioPlayer className={acessibilidade? ("acessibilidade"): ("")} />
                 </div>
-                <div className="repente">
-                    <h1>Letra do Repente</h1>
-                    <div className="letra">
-                        <h4>Amigo vou te dizer preste aqui atenção,</h4>
-                        <h4>vindo la do Crato, o Oásis do Sertão.</h4>
-                        <h4>Marcou a história no presente e no passado,</h4>
-                        <h4>Nascido em 18 7 8, o famoso Cego Aderaldo.</h4>
-                        <h4>Poeta famoso que marcou nossa cultura,</h4>
-                        <h4>Saiu do Crato enquanto criança fugindo dessa secura.</h4>
-                        <h4>Aos 18 anos na fábrica de algodão,</h4>
-                        <h4>Alimentava a fornalha o dia inteiro com carvão,</h4>
-                        <h4>Quando em um dia se deu a tal confusão,</h4>
-                        <h4>Que nosso poeta então perdeu a sua visão.</h4>
-                        <h4>Logo após isso então começa sua carreira,</h4>
-                        <h4>Os versos e estrofes se dedicou a vida inteira.</h4>
-                        <h4>Sua obra mais famosa “3 lágrimas” é o nome,</h4>
-                        <h4>Conta os acontecimentos que marcaram esse homi.</h4>
-                        <h4>A primeira veio com a morte de seu pai,</h4>
-                        <h4>Já a segunda com a morte de sua mainha,</h4>
-                        <h4>A terceira lágrima então só escorreu, com a perda da sua visão</h4>
-                        <h4>e também da Angelina.</h4>
-                        <h4>Teve mais de 26 filhos mesmo nunca tendo casado,</h4>
-                        <h4>Nas suas viagens foi adotando e todos foram criados.</h4>
-                        <h4>Foram mais de 70 anos com essa dedicação,</h4>
-                        <h4>Que fez orquestra com os filhos e boto cinema no sertão.</h4>
-                        <h4>E além disso ainda era comerciante,</h4>
-                        <h4>Ficava viajando pá todo canto a todo instante,</h4>
-                        <h4>Foi pra tanto lugar que esse homi já visitou,</h4>
-                        <h4>Que até na Amazônia o mesmo já até pisou.</h4>
-                        <h4>Conheceu tanto lugar e tanta gente diferente,</h4>
-                        <h4>Se eu falasse tudo não cabia no repente.</h4>
-                        <h4>De Luiz Gonzaga ele foi inspiração,</h4>
-                        <h4>Conheceu Rachel de Queiroz, Padre Cícero e até mesmo Lampião,</h4>
-                        <h4>É um exemplo de talento e também de superação.</h4>
-                        <h4>Pra que esse povo um dia nunca se esqueça,</h4>
-                        <h4>Cego Aderaldo aos 89 nos deixou em Fortaleza.</h4>
-                        <h4>- Esse caba fez muita coisa mesmo.</h4>
-                        <h4>- To te dizendo.</h4>
-                        <h4>- E todo esse conhecimento dele, o que aconteceu?</h4>
-                        <h4>O que aconteceu com conhecimento eu posso te explicá,</h4>
-                        <h4>Ta na Casa de Saberes bem aqui em Quixadá.</h4>
-                        <h4>Desde 2017 eles tem essa missão,</h4>
-                        <h4>De passar os conhcimentos, a arte e a educação.</h4>
-                        <h4>O respeito e a admiração é tanta que nem pode ser contado,</h4>
-                        <h4>Se pode até ver no nome “Casa de Saberes Cego Aderaldo.</h4>
-
-                    </div>
-                </div>
+               
                 
             </div>
         </div>

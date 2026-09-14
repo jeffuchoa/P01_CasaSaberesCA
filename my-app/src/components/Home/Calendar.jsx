@@ -4,6 +4,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
+import MobileCalendar from "./MobileCalendar";
+
 import { ptBR } from "@mui/x-date-pickers/locales";
 import { useState } from "react";
 import Swal from 'sweetalert2';
@@ -38,7 +40,7 @@ function Calendar() {
 
   const { isAdmin, setIsAdmin } = useContext(AdminContext);
   const { acessibilidade, SetAcessibilidade } = useContext(AcessContext);
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
 
   const navigate = useNavigate()
 
@@ -70,6 +72,15 @@ function Calendar() {
     ,
     []
   )
+
+  useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 1000);
+  };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(
     () => {
@@ -369,32 +380,35 @@ function Calendar() {
         <div className="header-pesquisas">
             <div className="cabecalho">
                 <h1 className="titulo"> Eventos</h1>
-                <p className="subtitulo">Fique por dentro de todos os eventos!</p>
+                <p className="subtitulo">Veja todos os eventos!</p>
             </div>
         </div>
         <div className={acessibilidade? ("calendario acessibilidade"): ("calendario")}>
-          <div className="corpo-calendario" style={{ width: "50vw" }}>
-            <Fullcalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              initialView={"dayGridMonth"}
-              headerToolbar={{
-                start: "title", // will normally be on the left. if RTL, will be on the right
-                center: "",
-                end: isAdmin === true ? 'today prev,next meuBotao' : 'today prev,next'  // will normally be on the right. if RTL, will be on the left
-              }}
-              events={eventos}
-              locale='pt-br'
-              height={"80vh"}
-              buttonText={{
-                today: 'Hoje',
-              }}
+          {isMobile ? (
+            <MobileCalendar />
+          ) : (
+            <div className="corpo-calendario">
+              <Fullcalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                initialView={"dayGridMonth"}
+                headerToolbar={{
+                  start: "title", // will normally be on the left. if RTL, will be on the right
+                  center: "",
+                  end: isAdmin === true ? 'today prev,next meuBotao' : 'today prev,next'  // will normally be on the right. if RTL, will be on the left
+                }}
+                events={eventos}
+                locale='pt-br'
+                height={"80vh"}
+                buttonText={{
+                  today: 'Hoje',
+                }}
 
-              customButtons={customButtons}
+                customButtons={customButtons}
 
-              dateClick={mostra}
-            />
-            
-          </div>
+                dateClick={mostra}
+              />
+            </div>
+          )}
           <div className={"overlayNovoEvento " + activ}>
             
               <div className="workshopconteinar">
@@ -409,6 +423,8 @@ function Calendar() {
         </div>
 
       </div>
+
+      
 
     </>
 
