@@ -88,11 +88,11 @@ const NovaPublicacao = () => {
 
                             <FormLabel sx={{ mt: "5%" }}>Imagem de capa (thumbnail)</FormLabel>
                             <FileUploader handleChange={setThumbnail} name="thumbnail" types={fileTypesImagem} />
-                            <h5>{thumbnail ? `Arquivo: ${thumbnail.name}` : "Nenhum arquivo selecionado"}</h5>
+                            <h5 className="pdf-name-pub">{thumbnail ? `Arquivo: ${thumbnail.name}` : "Nenhum arquivo selecionado"}</h5>
 
                             <FormLabel sx={{ mt: "5%" }}>Arquivo PDF da publicação</FormLabel>
                             <FileUploader handleChange={setPdf} name="pdf" types={fileTypesPdf} />
-                            <h5>{pdf ? `Arquivo: ${pdf.name}` : "Nenhum arquivo selecionado"}</h5>
+                            <h5 className="pdf-name-pub">{pdf ? `Arquivo: ${pdf.name}` : "Nenhum arquivo selecionado"}</h5>
 
                             {erro && <p style={{ color: "red" }}>{erro}</p>}
 
@@ -110,7 +110,7 @@ const NovaPublicacao = () => {
                         </Box>
                     </Container>
                 </div>
-                <div className="image-nova"><img src={beija} alt="" /></div>
+                <div className="image-nova beijar-flor"><img src={beija} alt="" /></div>
             </div>
         </>
     )

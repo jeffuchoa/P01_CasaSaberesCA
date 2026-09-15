@@ -294,7 +294,7 @@ function Calendar() {
       </div>
 
      
-      <div className={acessibilidade ? "bloco-calendario acessibilidade" : "bloco-calendario"}>
+      <div id="calendario" className={acessibilidade ? "bloco-calendario acessibilidade" : "bloco-calendario"}>
         <img className="cantores" src={cantores} alt="" />
         <img className="passaro" src={passaro} alt="" />
         <div className="header-pesquisas">

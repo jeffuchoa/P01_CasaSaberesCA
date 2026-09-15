@@ -1,10 +1,11 @@
 import PaginaPublicacao from "./PaginaPublicacao";
-import { Header, Footer} from "../Home/Home"
+import Footer from "../Home/Footer";
+import Header from "../Home/header";
 
 const ChamarPaginaPublicacao = () => {
     return(
         <>
-            <Header />
+            <Header data="scrolled" />
             <PaginaPublicacao />
             <Footer />
         </>

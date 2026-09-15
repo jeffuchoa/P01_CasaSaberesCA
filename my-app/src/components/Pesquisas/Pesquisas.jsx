@@ -190,7 +190,7 @@ const Pesquisas = () => {
 
     return (
         <>
-            <div className="header-pesquisas">
+            <div className="header-pesquisas sec-pesq">
                 <div className="cabecalho">
                     <h1 className="titulo"> Pesquisas</h1>
                     <p className="subtitulo">Nós ajude a entender você da melhor forma!</p>

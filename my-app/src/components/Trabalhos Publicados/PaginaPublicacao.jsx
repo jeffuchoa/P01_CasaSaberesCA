@@ -98,7 +98,7 @@ function PaginaPublicacao() {
 
   return (
     <>
-      <div className="header-pesquisas">
+      <div className="header-pesquisas sec-pesq">
         <div className="cabecalho">
           <h1 className="titulo"> Publicações</h1>
           <p className="subtitulo">Trabalhos oficiais feitos pela Casa de Saberes!</p>
@@ -107,7 +107,7 @@ function PaginaPublicacao() {
 
       <div className='todaspublicacoes'>
 
-        <div className="search-container">
+        <div className="search-container trabalhos-header">
           <img src={pesquisa} alt="Lupa de pesquisa ilustrada" className='lupar' />
           <TextField
             label="Pesquisar"
@@ -128,7 +128,7 @@ function PaginaPublicacao() {
             <div className='foi' key={publicacao._id}>
               <Link to={`/trabalho/${publicacao._id}`}>
                 <Card sx={{ maxWidth: "100%", mb: "3%", backgroundColor: "#EAE8DB", color: "#a12d2e" }}>
-                  <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
+                  <CardActionArea className="card-trabalhos" sx={{ display: "flex", flexDirection: "row" }}>
                     <CardMedia
                       component="img"
                       height="140"

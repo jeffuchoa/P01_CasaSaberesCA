@@ -13,8 +13,9 @@ import Casa from "../../assets/img/logo-casa-saberes-preto.png"
 import CasaBranca from "../../assets/img/Logo Branca.png"
 import UsuarioImg from "../../assets/img/user.png"
 import UsuarioImg2 from "../../assets/img/user2.png"
+import { HashLink } from 'react-router-hash-link';
 
-const Header = () => {
+const Header = ({ data = null }) => {
     const { acessibilidade, SetAcessibilidade } = useContext(AcessContext);
     const { usuario, logout } = useContext(AdminContext);
     const [ MenuVar, SetManuVar ] =  useState('');
@@ -57,20 +58,22 @@ const Header = () => {
     []);
 
     return (
-        <div className={`header ${acessibilidade ? 'acessibilidade' : ''} ${isScrolled ? 'scrolled' : ''}`}>
+        <div className={`header ${data} ${acessibilidade ? 'acessibilidade' : ''} ${isScrolled ? 'scrolled' : ''}`}>
             <div className="header-content">
-                <Link to={'/'}><img src={isScrolled ? (Casa) : (CasaBranca)} alt="Página inicial" style={{ height: "50px" }} /></Link>
+                <Link to={'/'}><img src={(isScrolled || data) ? (Casa) : (CasaBranca)} alt="Página inicial" style={{ height: "50px" }} /></Link>
                 <div className="header-infos">
                     <div className={`filtro ${MenuVar}`} onClick={MenuMobile}></div>
 
-                    <div className={`header-functions ${isScrolled ? 'scrolled' : ''} ${acessibilidade ? 'acessibilidade' : ''} ${MenuVar}`} >
-                        <Link to={'/PaginaPublicacao'}><a > Calendario de Eventos</a></Link>
+                    <div className={`header-functions ${(isScrolled || data) ? 'scrolled' : ''} ${acessibilidade ? 'acessibilidade' : ''} ${MenuVar}`} >
+                        <HashLink smooth to="/#calendario">
+                            <a>Calendario de Eventos</a>
+                        </HashLink>
                         <Link to={'/PaginaPublicacao'}><a > Publicações</a></Link>
                         <Link to={'/pesquisas'}><a > Pesquisas</a></Link>
                         <>
                             {usuario ? (
                                 <div className="nome-usuario">
-                                    <p className={`nome-usuario ${isScrolled ? 'scrolled' : ''}`} onClick={Trocar}>Olá {usuario.nome} !</p>
+                                    <p className={`nome-usuario ${(isScrolled || data) ? 'scrolled' : ''}`} onClick={Trocar}>Olá {usuario.nome} !</p>
                                     <div className={"dropdow " + active}>
                                         <p className="sair" onClick={Sair}>Sair</p>
                                     </div>
@@ -93,7 +96,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <img className="menu-header" onClick={MenuMobile} src={isScrolled ? (menuIconVer) : (menuIconBran)} alt="menu do site" />
+                    <img className="menu-header" onClick={MenuMobile} src={(isScrolled || data) ? (menuIconVer) : (menuIconBran)} alt="menu do site" />
 
                 </div>
                 

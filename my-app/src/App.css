@@ -1792,6 +1792,20 @@ h1{
   text-align: left;
 }
 
+.trabalhos-header{
+
+  @media (max-width: 1340px){
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 90% !important;
+    margin: auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+ 
+}
+
 .publicacoes-container {
   margin: 20px;
   width: 1150px;
@@ -1800,6 +1814,22 @@ h1{
   margin-left: -30px;
   position: relative;
   overflow: auto;
+
+
+  @media (max-width: 1000px){
+    width: 90%;
+    margin: auto;
+  }
+}
+
+.card-trabalhos{
+  display:flex;
+  flex-direction:row;
+
+   @media (max-width: 1000px){
+    flex-direction:column !important;
+    position: relative;
+  }
 }
 
 .publicacao-item {
@@ -1969,7 +1999,20 @@ ul {
   border-radius: 10px;
   white-space: nowrap;
   cursor: pointer;
+
+  @media (max-width: 1340px){
+    margin-left: auto;
+  }
 }
+
+.beijar-flor{
+
+  @media (max-width: 1340px){
+    display: none;
+  }
+}
+
+
 .botao-postar.active{
   display: flex;
 }
@@ -2051,6 +2094,10 @@ ul {
   justify-content: space-between;
   align-items: center;
   background-color:#EAE8DB ;
+
+  @media (max-width: 1000px){
+    overflow: hidden;
+  }
   
 }
 
@@ -2068,6 +2115,19 @@ ul {
   margin-left: 10%;
   margin-right: 10%;
   justify-content: center;
+
+  @media (max-width: 1340px){
+    margin-left: auto;
+    margin-right: auto;
+    margin: auto;
+  }
+}
+
+.pdf-name-pub{
+  @media (max-width: 1340px){
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .nova-publicacao .titulo{
@@ -2379,6 +2439,13 @@ ul {
   margin-left: 10%;
   margin-top: 2%;
   flex-direction: column;
+
+  @media (max-width: 1000px){
+    padding-top: 30px;
+    width: 90%;
+    margin: auto;
+    
+  }
 }
 
 .pesquisa{
@@ -2497,6 +2564,12 @@ ul {
 
   @media (max-width: 1000px){
     padding-left: 10px;
+  }
+}
+
+.sec-pesq{
+  @media (max-width: 1000px){
+    margin-top: 100px;
   }
 }
 
@@ -2847,6 +2920,15 @@ ul {
   top: 0;
   right: 0;
   position: absolute;
+
+  @media (max-width: 1000px){
+    top: auto;
+    bottom: 0;
+    margin-top: 0;
+    margin-right: 0;
+    width: 7%;
+    padding: 20px;
+  }
 }
 
 .react-audio-player{
@@ -3000,11 +3082,13 @@ ul {
 
 .lupar{
   margin-left: 1%;
- 
+
+  @media (max-width: 1000px){
+    display: none;
+  }
 }
 
 .foi{
-
   position: relative;
   width: 100%;
 }

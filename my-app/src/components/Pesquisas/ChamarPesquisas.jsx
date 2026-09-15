@@ -1,10 +1,11 @@
 import PaginaPesquisas from "./Pesquisas";
-import { Header, Footer} from "../Home/Home"
+import Footer from "../Home/Footer";
+import Header from "../Home/header";
 
 const ChamarPesquisas = () => {
     return(
         <>
-            <Header />
+            <Header data="scrolled" />
             <PaginaPesquisas />
             <Footer />
         </>
