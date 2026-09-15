@@ -1,9 +1,10 @@
-import {Footer, Noticias, BotaoPesquisa, NossosDados } from "./Home";
+import {Noticias, BotaoPesquisa, NossosDados } from "./Home";
 import Header from "./header";
 import Hero from "./Hero";
 import ImageSlider from "./ImageSlider";
 import SobreNos from "./SobreNos";
 import Calendar from "./Calendar";
+import Footer from "./Footer";
 import { SliderData } from "../../ImageSlider/SliderData";
 
 const ChamarHome = () => {
@@ -15,6 +16,7 @@ const ChamarHome = () => {
             <BotaoPesquisa />
             <SobreNos />
             <Calendar />
+            <Footer />
         </div>
     )
 

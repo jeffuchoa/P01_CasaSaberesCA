@@ -832,17 +832,27 @@ h1{
   width: 100%;
   height: 300px;
   background-color: #A12D2E;
+
+  @media (max-width: 1000px){
+    height: fit-content;
+  }
 }
 
 .rodape{
   display: flex;
   flex-direction: row;
-  
   width: 80%;
   height: 300px;
   align-items: center;
   justify-content: space-between;
+    
+  @media (max-width: 1000px){
+    flex-direction: column;
+    align-items: start;
+    height: fit-content !important;
+  }
 }
+
 .rodape h1{
   font-family: titulo;
   color: aliceblue;
@@ -858,6 +868,11 @@ h1{
 }
 .rodape img{
   height: 120px;
+
+  @media (max-width: 1000px){
+    height: 80px;
+    margin-bottom: 30px;
+  }
   
 }
 .rodape .sessoes{
@@ -873,13 +888,21 @@ h1{
 .rodape .contatos{
   display: flex;
   flex-direction: column;
-  
   align-items: center;
+
+  @media (max-width: 1000px){
+    align-items: start;
+  }
 }
 .rodape .contatos img{
   margin: 0;
   margin-right: 30px;
   height: 30px;
+
+  @media (max-width: 1000px){
+    margin-right: 10px;
+    height: 25px;
+  }
 }
 
 .wrapper {
@@ -1167,6 +1190,7 @@ h1{
 .card-dia{
   display: flex;
   flex-direction: column;
+  position: relative;
   max-height: 300px;
   min-height: 300px;
   margin-left: 30px;
@@ -1367,6 +1391,7 @@ h1{
   flex-direction: row;
   height: 35%;
   width: 55%;
+  position: relative;
   background-color: #A12D2E ;
   color: #EAE8DB !important;
   @media (max-width: 1000px){
@@ -1524,8 +1549,13 @@ h1{
   opacity: 0;
   background-color: #00000083;
   justify-content: center;
-  align-items: end;
+  align-items: center;
   transition:  500ms ease;
+
+  @media (max-width: 1000px){
+    justify-content: center;
+    align-items: end;
+  }
 }
 .overlayNovoEvento.active{
   display: flex;
@@ -1534,14 +1564,17 @@ h1{
   opacity: 1;
   height: 100vh;
   width: 100vw;
-  z-index: 30;
+  z-index: 99999999999;
   background-color: #00000083;
-  justify-content: start;
-  align-items: end;
+  justify-content: center;
+  align-items: center;
   transition:  500ms ease;
+
+   @media (max-width: 1000px){
+    justify-content: start;
+    align-items: end;
+  }
 }
-
-
 
 .overlayNovoEvento .container-data-novo-evento{
   display: none;
@@ -1551,6 +1584,12 @@ h1{
   width: 55%;
   background-color: #EAE8DB ;
   border-radius: 5px;
+
+  @media (max-width: 1000px){
+    width: 100%;
+    height: 90%;
+    padding-bottom: 0;
+  }
 }
 
 .container-data-novo-evento.active{
@@ -1567,7 +1606,27 @@ h1{
   padding: 3%;
   font-size: large;
   margin-left: 0;
+
+  @media (max-width: 1000px){
+    height: 30px;
+    margin-bottom: 30px;
+  }
 }
+
+.container-data-novo-evento .titulo h1{
+   @media (max-width: 1000px){
+    color: #EAE8DB;
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+}
+
+.container-data-novo-evento .titulo .volta{
+   @media (max-width: 1000px){
+    height: 80%;
+  }
+}
+
 
 .container-data-novo-evento .calendario-overlay{
   display: flex;
@@ -1615,6 +1674,15 @@ h1{
   margin-top: 3%;
   width: auto;
   height: 100%;
+
+  @media (max-width: 1000px){
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    margin-left: 0;
+    margin-top: 0;
+  }
 }
 
 /* EDICAO DE BOTOES NO CALENDARIO DO OVERLAY */
@@ -1781,6 +1849,14 @@ h1{
   margin-bottom: -150px;
 }
 
+.lixo-mobile{
+  height: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 30px;
+}
+
 .casal-image {
   width: 400px;
   opacity: 0.4;
@@ -1838,6 +1914,12 @@ ul {
   padding: 80px;
   text-align: center;
   margin-left: -30px;
+}
+
+.other{
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }
 
 .no-results-text {
@@ -2375,6 +2457,10 @@ ul {
   height: 100%;
   width: 40%;
   background-color: #fff;
+
+  @media (max-width: 1000px){
+    width: 90%;
+  }
 }
 
 .fechar-formulario{
@@ -2498,6 +2584,10 @@ ul {
   flex-direction: column;
   margin-left: 10%;
   font-weight: lighter;
+
+  @media (max-width: 1000px){
+    margin-left: 0;
+  }
 }
 
 .wrapper_NossosDados {
@@ -2530,18 +2620,22 @@ ul {
   width: 100%;
 }
 .dados{
-  
   margin-top: 5%;
   width: 100%;
   display: flex;
   justify-content: space-between;
- 
   align-items: center;
   flex-direction: row;
   font-size: 30px; /* Aumenta o tamanho do título */
   text-align: center;
   color: white;
   white-space: nowrap;
+
+  @media (max-width: 1000px){
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+  }
 }
 
 
@@ -2551,6 +2645,11 @@ ul {
   font-size: 30px;
   text-align: center;
   color: white;
+
+  @media (max-width: 1000px){
+    font-size: 18px;
+    margin: auto;
+  }
 }
 
 .calendario-header_Nossos_dados  h4{
@@ -2560,6 +2659,15 @@ ul {
 
 .nossos-dados-hidden {
   display: none;
+}
+
+.numero-acessos{
+  font-size: "60px";
+  font-weight: "bold";
+
+  @media (max-width: 1000px){
+    font-size: 35px !important;
+  }
 }
 
 .rodape_NossosDados{
@@ -2573,6 +2681,9 @@ ul {
   align-items: center;
   justify-content: center;
   
+  @media (max-width: 1000px){
+    height: fit-content;
+  }
 }
 
 .corpo-workshop{
