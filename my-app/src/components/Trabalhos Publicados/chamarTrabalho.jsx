@@ -1,7 +1,8 @@
 import React from "react";
 
 import Trabalho from "./Trabalho";
-import { Header, Footer} from "../Home/Home"
+import Footer from "../Home/Footer";
+import Header from "../Home/header";
 
 const ChamarTrabalho = () => {
     return(
