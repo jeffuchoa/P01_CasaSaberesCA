@@ -3080,7 +3080,7 @@ ul {
   height: 900px !important;
 }
 
-.lupar{
+.lupar{ 
   margin-left: 1%;
 
   @media (max-width: 1340px){
