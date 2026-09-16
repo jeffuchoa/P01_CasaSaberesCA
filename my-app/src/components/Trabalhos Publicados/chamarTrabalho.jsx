@@ -7,7 +7,7 @@ import Header from "../Home/header";
 const ChamarTrabalho = () => {
     return(
         <>
-            <Header />
+            <Header data="scrolled" />
             <Trabalho />
             <Footer />
         </>
